@@ -6,3 +6,7 @@
 * cd /path/to/app
 * bundle install
 * rake
+
+## Edit Storyboard
+
+* rake ib
