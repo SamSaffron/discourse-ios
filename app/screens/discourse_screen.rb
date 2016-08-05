@@ -8,6 +8,7 @@ class DiscourseScreen < UIViewController
     url = NSURL.URLWithString(forum[:url])
     url_request = NSURLRequest.requestWithURL(url)
     web_view.loadRequest(url_request)
+
     self.view.addSubview(web_view)
   end
 
@@ -15,6 +16,12 @@ class DiscourseScreen < UIViewController
   end
 
   def webView(web_view, didFinishNavigation:navigation)
+
+    # TODO figure out how to grap cookies
+    # p WKWebsiteDataStore.defaultDataStore.methods
+    # WKWebsiteDataStore.defaultDataStore.fetchDataRecordsOfTypes(
+    #   dataTypes: NSSet.setWithArray([WKWebsiteDataTypeCookies]),
+    #   completionHandler: proc{|record| p record})
   end
 
   def webView(web_view, didFailNavigation:navigation, withError:error)
@@ -26,7 +33,28 @@ class DiscourseScreen < UIViewController
 
   def build_web_view
     configuration = WKWebViewConfiguration.alloc.init
-    view = WKWebView.alloc.initWithFrame(self.view.frame, configuration:configuration)
+
+    controller = WKUserContentController.alloc.init
+
+    js = <<JS
+    (function() {
+      var methods = require('discourse/models/login-method').findAll(Discourse.SiteSettings);
+      methods.forEach(function(method){
+        method.set("fullScreenLogin", true);
+      });
+    })()
+JS
+
+    script = WKUserScript.alloc.initWithSource(js,
+                injectionTime: WKUserScriptInjectionTimeAtDocumentEnd,
+                forMainFrameOnly: true
+    )
+
+    controller.addUserScript script
+
+    configuration.userContentController = controller
+
+    view = WKWebView.alloc.initWithFrame(self.view.frame, configuration: configuration)
     view.navigationDelegate = self
     view
   end

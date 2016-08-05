@@ -13,6 +13,7 @@ Motion::Project::App.setup do |app|
   app.name = 'discourse-ios'
 
   app.info_plist['UILaunchStoryboardName'] = 'Launch Screen'
+  app.info_plist['NSAppTransportSecurity'] = { 'NSAllowsArbitraryLoads' => true }
 
   app.fonts << 'OpenSans-Light.ttf'
 

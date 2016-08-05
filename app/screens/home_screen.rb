@@ -7,8 +7,8 @@ class HomeScreen < UIViewController
 
   FIXTURES = [
     {
-      url: "http://discuss.emberjs.com",
-      title: "Ember discussions forum"
+      url: "http://l.discourse",
+      title: "Local discourse"
     },
     {
       url: "https://discuss.howtogeek.com",
