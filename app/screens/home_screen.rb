@@ -8,15 +8,18 @@ class HomeScreen < UIViewController
   FIXTURES = [
     {
       url: "http://l.discourse",
-      title: "Local discourse"
+      title: "Local discourse",
+      unread: 7
     },
     {
       url: "https://discuss.howtogeek.com",
-      title: "How-To Geek"
+      title: "How-To Geek",
+      unread: 2
     },
     {
       url: "https://meta.discourse.org/",
-      title: "Discourse Meta"
+      title: "Discourse Meta",
+      unread: nil
     }
   ]
 
@@ -31,13 +34,18 @@ class HomeScreen < UIViewController
   end
 
   def tableView(table_view, cellForRowAtIndexPath: index_path)
+    data = FIXTURES[index_path.row]
     cell = table_view.dequeueReusableCellWithIdentifier("HomeScreenForumCell", forIndexPath: index_path)
-    cell.textLabel.text = FIXTURES[index_path.row][:title]
-    cell.detailTextLabel.text = FIXTURES[index_path.row][:url]
-    label = UILabel.alloc.initWithFrame(CGRectMake(10,10,10,10))
-    label.text = "10"
+    cell.textLabel.text = data[:title]
+    cell.detailTextLabel.text = data[:url]
 
-    cell.accessoryView = label
+    if data[:unread] && data[:unread] > 0
+      label = UILabel.alloc.initWithFrame(CGRectMake(10,10,10,10))
+      label.text = data[:unread] ? data[:unread].to_s : ""
+      label.sizeToFit
+      cell.accessoryView = label
+    end
+
     cell
   end
 
