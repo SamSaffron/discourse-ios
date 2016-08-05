@@ -34,6 +34,10 @@ class HomeScreen < UIViewController
     cell = table_view.dequeueReusableCellWithIdentifier("HomeScreenForumCell", forIndexPath: index_path)
     cell.textLabel.text = FIXTURES[index_path.row][:title]
     cell.detailTextLabel.text = FIXTURES[index_path.row][:url]
+    label = UILabel.alloc.initWithFrame(CGRectMake(10,10,10,10))
+    label.text = "10"
+
+    cell.accessoryView = label
     cell
   end
 
