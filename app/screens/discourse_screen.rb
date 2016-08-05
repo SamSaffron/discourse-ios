@@ -17,11 +17,15 @@ class DiscourseScreen < UIViewController
 
   def webView(web_view, didFinishNavigation:navigation)
 
-    # TODO figure out how to grap cookies
-    # p WKWebsiteDataStore.defaultDataStore.methods
-    # WKWebsiteDataStore.defaultDataStore.fetchDataRecordsOfTypes(
-    #   dataTypes: NSSet.setWithArray([WKWebsiteDataTypeCookies]),
-    #   completionHandler: proc{|record| p record})
+    store = WKWebsiteDataStore.defaultDataStore
+    store.fetchDataRecordsOfTypes(
+      NSSet.setWithArray([WKWebsiteDataTypeCookies]),
+      completionHandler: proc{ |records|
+        records.each do |record|
+          p record.displayName
+          p record.dataTypes
+        end
+    })
   end
 
   def webView(web_view, didFailNavigation:navigation, withError:error)
