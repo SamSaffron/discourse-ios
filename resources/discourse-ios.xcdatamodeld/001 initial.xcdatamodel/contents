@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="001 initial" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+  <entity name="Site" syncable="YES" representedClassName="Site">
+    <attribute optional="NO" syncable="YES" attributeType="String" name="name"/>
+    <attribute optional="NO" syncable="YES" attributeType="String" name="url"/>
+    <attribute optional="YES" syncable="YES" attributeType="String" name="longDescription"/>
+    <attribute optional="YES" syncable="YES" attributeType="Date" name="lastChecked"/>
+    <attribute optional="YES" syncable="YES" attributeType="Integer 32" name="unread" defaultValueString="0"/>
+    <attribute optional="YES" syncable="YES" attributeType="Integer 32" name="unreadPM" defaultValueString="0"/>
+    <attribute optional="YES" syncable="YES" attributeType="String" name="authToken"/>
+    <attribute optional="YES" syncable="YES" attributeType="String" name="username"/>
+    <attribute optional="YES" syncable="YES" attributeType="String" name="logoUrl"/>
+    <attribute optional="YES" syncable="YES" attributeType="Binary" name="logo"/>
+  </entity>
+</model>

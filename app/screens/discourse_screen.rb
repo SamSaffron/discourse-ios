@@ -1,11 +1,12 @@
 class DiscourseScreen < UIViewController
   extend IB
 
-  attr_accessor :forum
+  attr_accessor :site
+  attr_reader :configuration
 
   def viewDidLoad
     super
-    url = NSURL.URLWithString(forum[:url])
+    url = NSURL.URLWithString(site.url)
     url_request = NSURLRequest.requestWithURL(url)
     web_view.loadRequest(url_request)
 
@@ -17,15 +18,22 @@ class DiscourseScreen < UIViewController
 
   def webView(web_view, didFinishNavigation:navigation)
 
-    store = WKWebsiteDataStore.defaultDataStore
-    store.fetchDataRecordsOfTypes(
-      NSSet.setWithArray([WKWebsiteDataTypeCookies]),
-      completionHandler: proc{ |records|
-        records.each do |record|
-          p record.displayName
-          p record.dataTypes
-        end
-    })
+    # store = WKWebsiteDataStore.defaultDataStore
+    # store.fetchDataRecordsOfTypes(
+    #   NSSet.setWithArray([WKWebsiteDataTypeCookies]),
+    #   completionHandler: proc{ |records|
+    #     records.each do |record|
+    #       p record.displayName
+    #       p record.dataTypes.allObjects
+    #     end
+    # })
+    @configuration.processPool = WKProcessPool.alloc.init
+    p NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies
+  end
+
+  def webView(web_view, decidePolicyForNavigationAction: action, decisionHandler: handler)
+    p action.request.allHTTPHeaderFields
+    handler.call WKNavigationResponsePolicyAllow
   end
 
   def webView(web_view, didFailNavigation:navigation, withError:error)
@@ -36,7 +44,14 @@ class DiscourseScreen < UIViewController
   end
 
   def build_web_view
-    configuration = WKWebViewConfiguration.alloc.init
+    @configuration = WKWebViewConfiguration.alloc.init
+    @configuration.processPool = WKProcessPool.alloc.init
+    # #
+    # dataTypes = NSSet.setWithArray([WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache])
+    #
+    # WKWebsiteDataStore.defaultDataStore.removeDataOfTypes(dataTypes, modifiedSince: NSDate.distantPast, completionHandler: proc{})
+    #
+    # puts "HELLO"
 
     controller = WKUserContentController.alloc.init
 
@@ -56,9 +71,9 @@ JS
 
     controller.addUserScript script
 
-    configuration.userContentController = controller
+    @configuration.userContentController = controller
 
-    view = WKWebView.alloc.initWithFrame(self.view.frame, configuration: configuration)
+    view = WKWebView.alloc.initWithFrame(self.view.frame, configuration: @configuration)
     view.navigationDelegate = self
     view
   end
