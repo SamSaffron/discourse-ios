@@ -5,6 +5,7 @@
 * Get RubyMotion : www.rubymotion.com
 * cd /path/to/app
 * bundle install
+* rake pod:install
 * rake
 
 ## Edit Storyboard

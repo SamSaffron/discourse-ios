@@ -18,4 +18,8 @@ Motion::Project::App.setup do |app|
   app.fonts << 'OpenSans-Light.ttf'
 
   app.frameworks << 'WebKit'
+
+  app.pods do
+    pod 'AFNetworking'
+  end
 end
