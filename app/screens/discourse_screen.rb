@@ -11,6 +11,7 @@ class DiscourseScreen < UIViewController
     web_view.loadRequest(url_request)
 
     self.view.addSubview(web_view)
+    self.title = site.name
   end
 
   def webView(web_view, didStartProvisionalNavigation:navigation)
