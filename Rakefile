@@ -19,4 +19,3 @@ Motion::Project::App.setup do |app|
 
   app.frameworks << 'WebKit'
 end
-task :"build:simulator" => :"schema:build"

@@ -7,10 +7,6 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    builder (3.2.2)
-    cdq (1.0.8)
-      motion-yaml (= 1.4)
-      ruby-xcdm (>= 0.0.9)
     claide (1.0.0)
     colored (1.2)
     i18n (0.7.0)
@@ -24,10 +20,6 @@ GEM
     motion-yaml (1.4)
     plist (3.2.0)
     rake (11.2.2)
-    ruby-xcdm (0.0.9)
-      activesupport (~> 4.1)
-      builder (~> 3.2)
-      plist (~> 3.1)
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
@@ -42,7 +34,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  cdq
   ib
   motion-flow
   rake
